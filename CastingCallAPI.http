@@ -1,0 +1,6 @@
+@CastingCallAPI_HostAddress = http://localhost:5067
+
+GET {{CastingCallAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
