@@ -1,4 +1,6 @@
 using CastingCallAPI.Data;
+using CastingCallAPI.Domain.Interfaces;
+using CastingCallAPI.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -25,6 +27,7 @@ namespace CastingCallAPI
             });
             builder.Services.AddControllers();
             builder.Services.AddDbContext<CastingCallDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
+            builder.Services.AddScoped<ICastingCallRepository, CastingCallRepository>();
 
             var app = builder.Build();
 
