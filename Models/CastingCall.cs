@@ -1,8 +1,11 @@
-﻿namespace CastingCallAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CastingCallAPI.Models
 {
     public class CastingCall
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? CompanyName { get; set; }
         public string? CastingDirector { get; set; }
         public string? Title { get; set; }

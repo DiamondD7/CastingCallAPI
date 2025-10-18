@@ -1,3 +1,7 @@
+using CastingCallAPI.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace CastingCallAPI
 {
     public class Program
@@ -8,12 +12,25 @@ namespace CastingCallAPI
 
             // Add services to the container.
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5173") // Allow your frontend's URL
+                              .AllowCredentials()  // Allow credentials (cookies, authorization headers)
+                              .AllowAnyHeader()    // Allow any headers
+                              .AllowAnyMethod();   // Allow any HTTP method
+                    });
+            });
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<CastingCallDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseAuthorization();
 
 
