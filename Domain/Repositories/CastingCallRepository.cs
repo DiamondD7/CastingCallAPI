@@ -16,7 +16,7 @@ namespace CastingCallAPI.Domain.Repositories
 
         public async Task<List<CastingCall>> GetCastingCallsAsync(Guid userId)
         {
-            return await _context.CastingCallsTable.Where(x => x.UserId == userId)
+            return await _context.CastingCallsTable.Where(x => x.UserId == userId).OrderBy(x => x.DueDate)
                 .ToListAsync();
         }
 
@@ -29,6 +29,7 @@ namespace CastingCallAPI.Domain.Repositories
                 CastingDirector = castingCall.CastingDirector,
                 Title = castingCall.Title,
                 Description = castingCall.Description,
+                Location = castingCall.Location,
                 Ethnicity = castingCall.Ethnicity,
                 Gender = castingCall.Gender,
                 Age = castingCall.Age,
